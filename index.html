@@ -80,24 +80,25 @@
     .header-inner {
       width: min(100%, var(--max));
       margin: 0 auto;
-      padding: .72rem 1rem;
-      display: flex;
+      padding: .58rem 1rem;
+      display: grid;
+      grid-template-columns: minmax(205px, 270px) minmax(0, 1fr);
       align-items: center;
-      justify-content: space-between;
-      gap: .8rem 1rem;
-      flex-wrap: wrap;
+      gap: .65rem;
     }
     .brand {
       display: inline-grid;
-      grid-template-columns: 34px minmax(0, 1fr);
+      grid-template-columns: 32px minmax(0, 1fr);
       align-items: center;
-      gap: .72rem;
+      gap: .62rem;
       text-decoration: none;
-      min-width: 230px;
-      flex: 0 0 auto;
+      min-width: 0;
+      max-width: 270px;
+      overflow: hidden;
     }
+    .brand > span:last-child { min-width: 0; overflow: hidden; }
     .brand-mark {
-      width: 34px; height: 34px;
+      width: 32px; height: 32px;
       border-radius: 10px;
       display: grid;
       place-items: center;
@@ -106,10 +107,45 @@
       font-weight: 950;
       letter-spacing: -.04em;
       box-shadow: 0 0 24px rgba(16, 220, 255, .32);
+      flex: 0 0 auto;
     }
-    .brand-title { display: block; font-weight: 900; letter-spacing: .04em; line-height: 1; white-space: nowrap; }
-    .brand-sub { display: block; color: var(--muted); font-size: .72rem; letter-spacing: .28em; line-height: 1.15; }
-    .nav { display: flex; align-items: center; justify-content: flex-end; gap: .5rem; flex-wrap: wrap; min-width: 0; }
+    .brand-title {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 900;
+      font-size: .98rem;
+      letter-spacing: .035em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .brand-sub {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--muted);
+      font-size: .62rem;
+      letter-spacing: .2em;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: .42rem;
+      flex-wrap: nowrap;
+      min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: .08rem 0 .12rem;
+    }
+    .nav::-webkit-scrollbar { display: none; }
     .nav a, .nav button, .pill-link, .copy-btn {
       border: 1px solid var(--line);
       background: rgba(8, 18, 32, .68);
@@ -434,10 +470,10 @@
     .toast.show { transform: translateY(0); }
 
     @media (min-width: 1200px) {
-      .header-inner { width: min(100%, 1220px); flex-wrap: nowrap; }
-      .nav { flex-wrap: nowrap; gap: .36rem; }
-      .nav a, .nav button { padding: .58rem .68rem; font-size: .78rem; }
-      .brand { min-width: 220px; }
+      .header-inner { width: min(100%, 1220px); }
+      .nav { gap: .42rem; }
+      .nav a, .nav button { padding: .56rem .72rem; font-size: .78rem; }
+      .brand { max-width: 270px; }
     }
     @media (max-width: 980px) {
       .hero-grid { grid-template-columns: 1fr; text-align: left; }
@@ -449,19 +485,24 @@
     }
     @media (max-width: 760px) {
       html { scroll-padding-top: 145px; }
-      .header-inner { justify-content: center; padding: .7rem .75rem .65rem; }
-      .brand { width: 100%; min-width: 0; justify-content: center; grid-template-columns: 34px auto; }
+      .header-inner {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: .64rem .75rem .58rem;
+      }
+      .brand {
+        width: 100%;
+        max-width: 360px;
+        justify-content: center;
+        grid-template-columns: 32px minmax(0, auto);
+      }
       .brand-title { font-size: .94rem; }
-      .brand-sub { font-size: .64rem; letter-spacing: .22em; }
+      .brand-sub { font-size: .58rem; letter-spacing: .18em; }
       .nav {
         width: 100%;
         justify-content: flex-start;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: .12rem;
-        scrollbar-width: thin;
       }
-      .nav a, .nav button { padding: .6rem .78rem; font-size: .82rem; }
+      .nav a, .nav button { padding: .58rem .72rem; font-size: .8rem; }
       .hero { padding-top: 2.15rem; }
       h1 { max-width: 100%; font-size: clamp(2.9rem, 16vw, 4.25rem); }
       .hero p { font-size: 1.05rem; }
@@ -502,12 +543,12 @@
       </a>
       <nav class="nav" aria-label="Primary navigation">
         <a href="#about">About</a>
-        <a href="#helps">Who It Helps</a>
+        <a href="#helps">Helps</a>
         <a href="#contents">Contents</a>
-        <a href="#share-kit">Share Kit</a>
-        <a href="https://cornelius-aurelius.github.io/CORNELIUS-AURELIUS-EBOOKS/">Ebook Hub</a>
-        <a href="https://corneliusaurelius.com/">CORNELIUSAURELIUS.COM</a>
-        <a href="https://buy.stripe.com/28E00jbRIfz8aLI7TGco000">Tip Cornelius</a>
+        <a href="#share-kit">Share</a>
+        <a href="https://cornelius-aurelius.github.io/CORNELIUS-AURELIUS-EBOOKS/" title="Cornelius Aurelius Ebook Hub">Hub</a>
+        <a href="https://corneliusaurelius.com/" title="CORNELIUSAURELIUS.COM">Website</a>
+        <a href="https://buy.stripe.com/28E00jbRIfz8aLI7TGco000" title="Tip Cornelius">Tip</a>
       </nav>
     </div>
   </header>
