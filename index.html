@@ -362,6 +362,119 @@
       .book-section { box-shadow:none; border:0; page-break-inside: avoid; width:100%; }
       a { color:#111; text-decoration:none; }
     }
+
+
+    /* 2026 layout upgrade: cleaner desktop hero, compact header, safer cover sizing */
+    html { overflow-x: hidden; }
+    body { overflow-x: hidden; }
+    .site-shell { width: min(1160px, calc(100% - 40px)); }
+    .topbar-inner { min-height: 68px; gap: .75rem; }
+    .brand-mark { width: 34px; height: 34px; border-radius: 11px; font-size: .78rem; }
+    .brand-text strong { font-size: .88rem; }
+    .brand-text span { font-size: .68rem; letter-spacing: .14em; }
+    .nav { flex-wrap: nowrap; gap: .38rem; min-width: 0; }
+    .nav a, .nav button, .btn { padding: .58rem .78rem; font-size: .78rem; line-height: 1.05; white-space: nowrap; }
+    .nav .btn-primary { padding-inline: .9rem; }
+    .hero { padding: clamp(2rem, 4.8vw, 4.9rem) 0 clamp(1.1rem, 2.5vw, 2rem); }
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.08fr) minmax(310px, .72fr);
+      gap: clamp(1.25rem, 4vw, 3.4rem);
+      align-items: center;
+    }
+    .eyebrow { padding: .38rem .72rem; font-size: .72rem; letter-spacing: .14em; }
+    .hero h1 {
+      font-size: clamp(3.05rem, 6.6vw, 5.95rem);
+      line-height: .9;
+      max-width: 12ch;
+      margin-top: .9rem;
+    }
+    .subtitle {
+      font-size: clamp(1.05rem, 1.7vw, 1.38rem);
+      max-width: 58ch;
+      line-height: 1.42;
+    }
+    .hero-actions { margin-top: 1.35rem; gap: .6rem; }
+    .stats { margin-top: 1.35rem; gap: .7rem; max-width: 600px; }
+    .stat { padding: .78rem .82rem; border-radius: 17px; }
+    .stat strong { font-size: clamp(1.25rem, 2.35vw, 1.62rem); }
+    .stat span { font-size: .78rem; }
+    .cover-card {
+      min-height: 0;
+      height: min(52vw, 470px);
+      max-height: 470px;
+      padding: clamp(.85rem, 2vw, 1.25rem);
+      align-self: center;
+    }
+    .book-cover {
+      min-height: 0;
+      height: 100%;
+      padding: clamp(1rem, 2.3vw, 1.55rem);
+      border-radius: 24px;
+    }
+    .cover-top { font-size: .68rem; letter-spacing: .22em; }
+    .cover-title {
+      font-size: clamp(2.25rem, 4.05vw, 3.75rem);
+      line-height: .88;
+      max-width: 100%;
+      letter-spacing: -.065em;
+    }
+    .cover-title .cover-word { font-size: .72em; letter-spacing: -.055em; display: inline-block; }
+    .cover-subtitle { font-size: clamp(.78rem, 1.2vw, .95rem); line-height: 1.55; max-width: 28ch; }
+    .cover-author { font-size: .68rem; letter-spacing: .11em; }
+    .intro-panels { padding-top: 1.4rem; }
+    .reader-tools { margin-top: .8rem; }
+
+    @media (max-width: 1120px) {
+      .menu-toggle { display: inline-flex; }
+      .nav {
+        display: none;
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 74px;
+        padding: .75rem;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--panel2);
+        box-shadow: var(--shadow);
+        justify-content: stretch;
+        flex-wrap: wrap;
+      }
+      .nav.open { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav a, .nav button { width: 100%; text-align: center; white-space: normal; }
+    }
+
+    @media (max-width: 980px) {
+      .site-shell { width: min(100% - 28px, 760px); }
+      .hero { padding-top: 2.1rem; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .cover-card { height: auto; max-height: none; max-width: 460px; width: 100%; margin-inline: auto; }
+      .book-cover { min-height: 440px; height: auto; }
+      .hero h1 { font-size: clamp(3rem, 12vw, 5.6rem); }
+      .subtitle { max-width: 62ch; }
+    }
+
+    @media (max-width: 760px) {
+      .site-shell { width: min(100% - 22px, 720px); }
+      .topbar-inner { min-height: 62px; }
+      .nav { left: 11px; right: 11px; top: 68px; }
+      .nav.open { grid-template-columns: 1fr; }
+      .hero { padding-top: 1.6rem; }
+      .hero h1 { font-size: clamp(2.75rem, 15.5vw, 4.8rem); }
+      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .stat { padding: .7rem .52rem; }
+      .stat span { font-size: .72rem; }
+      .cover-card { display: none; }
+      .intro-panels { padding-top: 1rem; }
+    }
+
+    @media (max-width: 520px) {
+      .brand-text strong { max-width: 44vw; }
+      .hero-actions .btn { width: 100%; text-align: center; }
+      .stats { grid-template-columns: 1fr; }
+      .stat { display: flex; align-items: baseline; gap: .7rem; justify-content: space-between; }
+      .stat span { text-align: right; }
+    }
   </style>
 </head>
 <body data-theme="dark">
@@ -407,7 +520,7 @@
           <div class="book-cover">
             <div class="cover-top">Cornelius Aurelius</div>
             <div>
-              <div class="cover-title">The<br>Un-<br>Psychologist</div>
+              <div class="cover-title">The<br>Un-<br><span class="cover-word">Psychologist</span></div>
               <p class="cover-subtitle">Psychology Without Permission<br>An Unauthorized Field Guide to Attention, Trust, Emotion, and Ethical Persuasion</p>
             </div>
             <div class="cover-author"><span>Influence</span><span>Ethics</span><span>Clarity</span></div>
